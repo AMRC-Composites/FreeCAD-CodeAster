@@ -33,6 +33,7 @@ string to identify the solver in question. At the moment the following solvers
 are supported:
 
     - Calculix
+    - Code Aster
     - ElmerSolver
     - Mystran
     - Z88
@@ -171,6 +172,8 @@ def get_default_solver():
     solver_map = {0: "None"}
     if get_binary("Calculix", True):
         solver_map[1] = "CalculiXCcxTools"
+    if get_binary("CodeAster", True):
+        solver_map[len(solver_map)] = "CodeAster"
     if get_binary("ElmerSolver", True):
         solver_map[len(solver_map)] = "Elmer"
     if get_binary("Mystran", True):
@@ -208,7 +211,7 @@ class _SolverDlg:
         last part as the *param_path* is prepended to this value.
 
     :ivar custom_path:
-        Param path identifying the "custom_path" setting. Only specifie the
+        Param path identifying the "custom_path" setting. Only specify the
         last part as the *param_path* is prepended to this value.
     """
 
@@ -230,13 +233,14 @@ class _SolverDlg:
         # without any additional user input
         # see ccxttols, it works for Windows and Linux there
         binary = self.default
-        FreeCAD.Console.PrintLog(f"Solver binary path default: {binary} \n")
+        FreeCAD.Console.PrintMessage(f"Solver binary path default: {binary} \n")
 
         # check if use_default is set to True
         # if True the standard binary path will be overwritten with a user binary path
         if self.param_group.GetBool(self.use_default, True) is False:
             binary = self.param_group.GetString(self.custom_path)
-        FreeCAD.Console.PrintLog(f"Solver binary path user setting: {binary} \n")
+            FreeCAD.Console.PrintMessage(f"Solver binary path set to: {binary} \n")
+        FreeCAD.Console.PrintMessage(f"Solver binary path user setting: {binary} \n")
 
         # get the whole binary path name for the given command or binary path and return it
         # None is returned if the binary has not been found
@@ -249,7 +253,7 @@ class _SolverDlg:
                 f"The binary has not been found. Full binary search path: {binary}\n"
             )
         else:
-            FreeCAD.Console.PrintLog(f"Found solver binary path: {the_found_binary}\n")
+            FreeCAD.Console.PrintMessage(f"Found solver binary path: {the_found_binary}\n")
         return the_found_binary
 
     def get_cores(self):
@@ -266,6 +270,12 @@ _SOLVER_PARAM = {
         param_path=_PARAM_PATH + "Ccx",
         use_default="UseStandardCcxLocation",
         custom_path="ccxBinaryPath",
+    ),
+    "CodeAster": _SolverDlg(
+        default="run_aster",
+        param_path=_PARAM_PATH + "CodeAster",
+        use_default="UseStandardCodeAsterLocation",
+        custom_path="codeasterBinaryPath",
     ),
     "ElmerSolver": _SolverDlg(
         default="ElmerSolver",
@@ -290,5 +300,6 @@ _SOLVER_PARAM = {
         param_path=_PARAM_PATH + "Z88",
         use_default="UseStandardZ88Location",
         custom_path="z88BinaryPath",
-    ),
+    )
+
 }

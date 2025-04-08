@@ -387,6 +387,18 @@ class _ElementGeometry2D(CommandManager):
         )
         self.is_active = "with_analysis"
         self.do_activated = "add_obj_on_gui_set_edit"
+        
+class _ElementGeometryLaminate(CommandManager):
+    "The FEM_ElementGeometryLaminate command definition"
+
+    def __init__(self):
+        super().__init__()
+        self.menutext = Qt.QT_TRANSLATE_NOOP("FEM_ElementGeometryLaminate", "Shell laminate definition")
+        self.tooltip = Qt.QT_TRANSLATE_NOOP(
+            "FEM_ElementGeometryLaminate", "Creates a FEM shell laminate definition"
+        )
+        self.is_active = "with_analysis"
+        self.do_activated = "add_obj_on_gui_set_edit"
 
 
 class _ElementRotation1D(CommandManager):
@@ -423,7 +435,7 @@ class _EquationElasticity(CommandManager):
         self.tooltip = Qt.QT_TRANSLATE_NOOP(
             "FEM_EquationElasticity", "Creates a FEM equation for elasticity (stress)"
         )
-        self.is_active = "with_solver_elmer"
+        self.is_active = "with_solver"
         self.do_activated = "add_obj_on_gui_selobj_expand_noset_edit"
 
 
@@ -1146,6 +1158,18 @@ class _SolverMystran(CommandManager):
         self.is_active = "with_analysis"
         self.do_activated = "add_obj_on_gui_expand_noset_edit"
 
+class _SolverCodeAster(CommandManager):
+    "The FEM_SolverCodeAster command definition"
+
+    def __init__(self):
+        super().__init__()
+        self.pixmap = "FEM_SolverCodeAster"
+        self.menutext = Qt.QT_TRANSLATE_NOOP("FEM_SolverCodeAster", "Solver Code Aster")
+        self.accel = "S, M"
+        self.tooltip = Qt.QT_TRANSLATE_NOOP("FEM_SolverCodeAster", "Creates a Code Aster FEM solver")
+        self.is_active = "with_analysis"
+        self.do_activated = "add_obj_on_gui_expand_noset_edit"
+
 
 class _SolverRun(CommandManager):
     "The FEM_SolverRun command definition"
@@ -1199,6 +1223,7 @@ FreeCADGui.addCommand("FEM_ConstraintTie", _ConstraintTie())
 FreeCADGui.addCommand("FEM_ElementFluid1D", _ElementFluid1D())
 FreeCADGui.addCommand("FEM_ElementGeometry1D", _ElementGeometry1D())
 FreeCADGui.addCommand("FEM_ElementGeometry2D", _ElementGeometry2D())
+FreeCADGui.addCommand("FEM_ElementGeometryLaminate", _ElementGeometryLaminate())
 FreeCADGui.addCommand("FEM_ElementRotation1D", _ElementRotation1D())
 FreeCADGui.addCommand("FEM_EquationDeformation", _EquationDeformation())
 FreeCADGui.addCommand("FEM_EquationElasticity", _EquationElasticity())
@@ -1231,5 +1256,6 @@ FreeCADGui.addCommand("FEM_SolverCalculiX", _SolverCalculix())
 FreeCADGui.addCommand("FEM_SolverControl", _SolverControl())
 FreeCADGui.addCommand("FEM_SolverElmer", _SolverElmer())
 FreeCADGui.addCommand("FEM_SolverMystran", _SolverMystran())
+FreeCADGui.addCommand("FEM_SolverCodeAster", _SolverCodeAster())
 FreeCADGui.addCommand("FEM_SolverRun", _SolverRun())
 FreeCADGui.addCommand("FEM_SolverZ88", _SolverZ88())

@@ -1,5 +1,10 @@
 <a href="https://freecad.org"><img src="/src/Gui/Icons/freecad.svg" height="100px" width="100px"></a>
 
+### Code Aster Integration fork
+
+Experimental integration of Code Aster finite element solver into FreeCAD. See discussion on [FreeCAD forum](https://forum.freecad.org/viewtopic.php?t=90915) * for more details.
+
+
 ### Your own 3D parametric modeler
 
 [Website](https://www.freecad.org) •
